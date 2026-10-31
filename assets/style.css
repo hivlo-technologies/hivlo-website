@@ -121,3 +121,29 @@ ul.ticks li::before{content:"";position:absolute;left:2px;top:7px;width:9px;heig
 .hxtip{position:absolute;z-index:5;background:rgba(6,22,40,.96);color:#e8effc;border:1px solid rgba(244,180,0,.55);border-left:5px solid var(--gold);border-radius:10px;padding:12px 14px;box-shadow:0 8px 26px rgba(0,0,0,.45);pointer-events:none;font-size:14px;line-height:1.45}
 .hxtip strong{display:block;color:#FFD54A;font-size:16px;margin-bottom:4px}
 @media (prefers-reduced-motion:reduce){#hive .lift{transition:none}}
+
+.hero2 .wrap{grid-template-columns:1fr}.hero2{padding:80px 0 64px}.hero2 .sub{max-width:36ch;font-size:22px}
+
+/* HIVLO CMP page: one continuous hive look */
+body.hive{--ink:#e8edf6;--mute:#b9c7e0;--card:rgba(255,255,255,.07);--line:rgba(244,180,0,.32);background:#0B2A4A;color:var(--ink)}
+body.hive::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(8,28,50,.88),rgba(8,28,50,.9)),url(img/flow-bg.webp) center/cover no-repeat}
+body.hive section,body.hive .imgsec{background:transparent}
+body.hive .imgsec::before{display:none}
+body.hive section h2,body.hive .imgsec h2{color:#fff}
+body.hive .lead{color:#c7d4ec}
+body.hive .card{backdrop-filter:blur(2px)}
+body.hive .card h3{color:#fff}body.hive .card p{color:#c7d4ec}
+body.hive .card.star{border-color:var(--gold)}
+body.hive .ico{background:var(--gold);color:#0B2A4A}
+body.hive .journey li{background:var(--card);border-color:var(--line);border-top-color:var(--gold);color:#e8edf6}
+body.hive .journey li b{color:#fff}body.hive .journey li span{color:#c7d4ec}
+body.hive .hero2{background:transparent}
+body.hive .imgsec a{color:var(--gold)}body.hive a.btn{color:#1a1a1a}body.hive a.btn.ghost{color:#fff}
+
+.plug{display:grid;gap:16px;grid-template-columns:1fr 1.4fr;align-items:stretch}
+.plugs{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.plugs .card h3{margin:6px 0 4px}.card.planned{border-style:dashed;background:transparent}
+@media (max-width:760px){.plug{grid-template-columns:1fr}.plugs{grid-template-columns:1fr}}
+.faq{display:grid;gap:10px;max-width:820px}.faq details{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:14px 18px}
+.faq summary{cursor:pointer;font-weight:700;color:var(--navy)}.faq details[open] summary{margin-bottom:8px}.faq p{margin:0;color:var(--mute)}
+nav a{white-space:nowrap}
