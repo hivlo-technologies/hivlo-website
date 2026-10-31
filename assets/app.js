@@ -12,14 +12,14 @@ async function renderReleases(sel,limit){const t=$(sel);if(!t)return;const d=awa
  if(!d||!d.releases||!d.releases.length){t.appendChild(el('p','lead','No updates have been posted yet.'));return}
  d.releases.slice(0,limit||999).forEach(r=>t.appendChild(release(r)))}
 async function renderLatest(){const d=await get('updates/latest.json');
- document.querySelectorAll('[data-build]').forEach(e=>e.textContent=d&&d.build?d.build:'—');
+ document.querySelectorAll('[data-build]').forEach(e=>e.textContent=d&&d.build?d.build:'\u2014');
  const t=$('#downloads');if(!t)return;t.textContent='';
- if(!d||!d.variants||!d.variants.length){t.appendChild(el('p','lead','The installer for the current build is being prepared. Please check back soon, or ask your HIVLO supplier.'));return}
- d.variants.forEach(v=>{const key=(v.products||[]).slice().sort().join('+');const row=el('div','dlrow');const l=el('div');
-  l.appendChild(el('strong',0,(LABEL[key]||'HIVLO update')+' · Build '+d.build));
-  l.appendChild(el('small',0,v.file+' · '+fmtSize(v.size||0)));if(v.sha256)l.appendChild(el('small',0,'SHA-256: '+v.sha256));
-  const a=el('a','btn dl','Download');a.href='updates/'+encodeURIComponent(v.file);a.setAttribute('download','');row.appendChild(l);row.appendChild(a);t.appendChild(row)});
- const s=d.setup;if(s&&s.file){const row=el('div','dlrow');const l=el('div');l.appendChild(el('strong',0,'First-time server setup · Build '+d.build));
-  l.appendChild(el('small',0,s.file+' · '+fmtSize(s.size||0)));if(s.sha256)l.appendChild(el('small',0,'SHA-256: '+s.sha256));
-  const a=el('a','btn dl','Download');a.href='downloads/'+encodeURIComponent(s.file);a.setAttribute('download','');row.appendChild(l);row.appendChild(a);t.insertBefore(row,t.firstChild)}}
+ const mail=(what)=>'mailto:support@hivlo.co.za?subject='+encodeURIComponent('HIVLO CMP download request: '+what)+'&body='+encodeURIComponent('Hello,\n\nPlease send me the download link for: '+what+'\n\nOrganisation:\nContact person:\nCurrent build (Administration > Updates):\n');
+ const rows=[];if(d&&d.setup&&d.setup.file)rows.push(['First-time server setup',d.setup]);
+ (d&&d.variants||[]).forEach(v=>{const key=(v.products||[]).slice().sort().join('+');rows.push([(LABEL[key]||'HIVLO update'),v])});
+ if(!rows.length){const r=el('div','dlrow');const l=el('div');l.appendChild(el('strong',0,'HIVLO CMP \u00B7 Build '+(d&&d.build||'')));l.appendChild(el('small',0,'Send us a short email and we will reply with a private download link.'));
+  const x=el('a','btn dl','Request download');x.href=mail('Build '+(d&&d.build||'current'));r.appendChild(l);r.appendChild(x);t.appendChild(r);return}
+ rows.forEach(([name,v])=>{const row=el('div','dlrow');const l=el('div');l.appendChild(el('strong',0,name+' \u00B7 Build '+d.build));
+  l.appendChild(el('small',0,v.file+(v.size?' \u00B7 '+fmtSize(v.size):'')));if(v.sha256)l.appendChild(el('small',0,'SHA-256: '+v.sha256));
+  const x=el('a','btn dl','Request download');x.href=mail(name+', Build '+d.build);row.appendChild(l);row.appendChild(x);t.appendChild(row)})}
 renderLatest();renderReleases('#latestRelease',1);renderReleases('#allReleases');

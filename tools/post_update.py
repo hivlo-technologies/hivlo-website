@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-"""Post a HIVLO release: adds release notes, copies signed update files, refreshes updates/latest.json.
-Only signed .hivlo files are accepted for updates. Private keys are refused."""
+"""Post a HIVLO release to the PUBLIC website: release notes plus file name, size and SHA-256 in updates/latest.json.
+The files themselves are NEVER copied into the website (customers receive them by private link).
+Only signed .hivlo files are accepted. Private keys and the Licence Tool are refused."""
 import argparse, hashlib, json, pathlib, shutil, sys
 root = pathlib.Path(__file__).resolve().parent.parent
 def sha(p):
@@ -39,9 +40,9 @@ rel['releases'].insert(0, {'build': a.build, 'date': a.date, 'kind': a.kind, 'ti
 rel['releases'].sort(key=lambda r: [int(x) for x in r['build'].split('.')], reverse=True)
 rj.write_text(json.dumps(rel, indent=1, ensure_ascii=False) + '\n')
 if variants or setup:
-    (root / 'updates').mkdir(exist_ok=True); (root / 'downloads').mkdir(exist_ok=True)
-    for v in variants: shutil.copy2(v.pop('src'), root / 'updates' / v['file'])
-    if setup: shutil.copy2(setup.pop('src'), root / 'downloads' / setup['file'])
+    (root / 'updates').mkdir(exist_ok=True)
+    for v in variants: v.pop('src')
+    if setup: setup.pop('src')
     notes = '; '.join(a.note)[:500]
     for v in variants: v['notes'] = notes
     (root / 'updates' / 'latest.json').write_text(json.dumps({'build': a.build, 'published': a.date, 'variants': variants, 'setup': setup}, indent=1) + '\n')
