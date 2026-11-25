@@ -2,7 +2,7 @@
 Static site, no build step. Hosted free on GitHub Pages (Settings > Pages > Deploy from branch `main`, folder `/ (root)`). Custom domain: hivlo.co.za (add under Pages settings, then Enforce HTTPS).
 
 ## What is here
-- `index.html` HIVLO Technologies · `cmp.html` HIVLO CMP · `download.html` how to get and install/update · `updates.html` release notes
+- `index.html` HIVLO Solutions · `cmp.html` HIVLO CMP · `download.html` how to get and install/update · `updates.html` release notes
 - `releases.json` release notes feed · `updates/latest.json` current build, file names, sizes and SHA-256 (metadata only)
 - `assets/` styles, scripts, logos, images
 
