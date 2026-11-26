@@ -27,3 +27,7 @@ var vis=true;if('IntersectionObserver' in window)new IntersectionObserver(functi
 (function loop(t){if(vis){f(t)}else return})(0)}
 else if(cv){cv.style.display='none'}
 })();
+(function(){var t=document.getElementById('tour');if(!t)return;
+var tabs=[].slice.call(t.querySelectorAll('[role=tab]'));
+function sel(b,f){tabs.forEach(function(x){var on=x===b;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;var p=document.getElementById('tp-'+x.dataset.t);if(p)p.hidden=!on});if(f)b.focus()}
+tabs.forEach(function(b,i){b.addEventListener('click',function(){sel(b)});b.addEventListener('keydown',function(e){var k=e.key,n=-1;if(k==='ArrowDown'||k==='ArrowRight')n=(i+1)%tabs.length;else if(k==='ArrowUp'||k==='ArrowLeft')n=(i-1+tabs.length)%tabs.length;else if(k==='Home')n=0;else if(k==='End')n=tabs.length-1;if(n>-1){e.preventDefault();sel(tabs[n],true)}})})})();
